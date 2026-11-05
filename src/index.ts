@@ -28,10 +28,11 @@ app.use(cors({
 }))
 app.use(express.json({ limit: '1mb' }))
 
+app.get('/health', (_req, res) => res.json({ status: 'ok' }))
 app.get('/api/health', (_req, res) => res.json({ status: 'ok' }))
 app.use('/api/auth', authRouter)
 app.use('/api/resumes', resumeRouter)
 app.use((_req, res) => res.status(404).json({ error: { message: 'Route not found.' } }))
 app.use(errorHandler)
 
-app.listen(port, () => console.log(`Websy Resume API is listening on port ${port}`))
+app.listen(port, '0.0.0.0', () => console.log(`Websy Resume API is listening on port ${port}`))
